@@ -1,0 +1,113 @@
+@URL=http://localhost/api
+@token=Bearer 1|Gl4N0OqJ2T9LQvApuUtlb2fFzKTrjmFQjhS2liyH572e8c5b
+
+# ADMIN LOGIN
+
+POST {{URL}}/login
+Accept: application/json 
+Content-type: application/json
+
+{
+    "email": "hectorsimandev@gmail.com",
+    "password": "admin"
+} 
+
+### GET ALL USERS
+
+GET {{URL}}/users
+Accept: application/json
+Content-type: application/json
+Authorization: {{token}}
+
+### GET USER PROFILE
+
+GET {{URL}}/profile
+Accept: application/json
+Content-type: application/json
+Authorization: {{token}}
+
+
+### UPDATE USER BY ID
+
+PUT {{URL}}/profile/11
+Accept: application/json
+Content-type: application/json
+Authorization: {{token}}
+
+{   
+    "email": "hectorsimandev@gmail.com",
+    "is_admin": 0
+}
+
+### DELETE USER BY ID
+
+DELETE {{URL}}/users/1
+Accept: application/json
+Content-type: application/json
+
+###
+### EXPENSES
+###
+### GET ALL EXPENSES
+
+GET {{URL}}/expenses
+Accept: application/json
+Content-type: application/json
+Authorization: {{token}}
+
+### GET EXPENSE BY ID
+
+GET {{URL}}/expenses/1
+Accept: application/json
+Content-type: application/json
+Authorization: {{token}}
+
+### CREATE EXPENSE
+
+POST {{URL}}/expenses
+Accept: application/json
+Content-type: application/json
+Authorization: {{token}}
+
+{   
+    "title": "test expense",
+    "description": "test expense description",
+    "date": "2020-01-01",
+    "total_amount": 100
+}
+
+### UPDATE EXPENSE BY ID
+
+PUT {{URL}}/expenses/1
+Accept: application/json
+Content-type: application/json
+Authorization: {{token}}
+
+{   
+    "total_amount": 101
+}
+
+### DELETE EXPENSE BY ID
+
+DELETE {{URL}}/expenses/2
+Accept: application/json
+Content-type: application/json
+Authorization: {{token}}
+
+###
+### PARTNERS
+###
+
+### GET ALL PARTNERS
+
+GET {{URL}}/partners
+Accept: application/json
+Content-type: application/json
+Authorization: {{token}}
+
+### GET PARTNER BY ID
+
+GET {{URL}}/partners/1
+Accept: application/json
+Content-type: application/json
+Authorization: {{token}}

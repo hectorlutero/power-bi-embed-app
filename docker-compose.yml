@@ -41,7 +41,7 @@ services:
       - .docker/db/sql:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: modular-monolith
+      MYSQL_DATABASE: power-bi-embed-app
       MYSQL_PASSWORD: root
 
   ####################################################################################################

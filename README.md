@@ -1,14 +1,20 @@
-# modular-monolith-backend-template
+# Power BI Embed App
 
-## Documentation
+Welcome to the Power BI Embed App documentation. This project is a robust, modular monolith backend template built with Laravel 11, MySQL 8, and PHP 8. It provides a comprehensive solution for embedding Power BI reports with advanced user access control and management features.
 
-This project is a modular monolith backend template built with Laravel 11, MySQL 8, and PHP 8.
+## Key Features
 
-## Technologies Used
+- Built on Laravel 11 framework
+- MySQL 8 database integration
+- PHP 8 compatibility
+- Docker containerization support
+- User authentication and authorization
+- Role-based access control
+- Group-based permissions
+- Report and workspace management
+- RESTful API architecture
 
-- Laravel 11
-- MySQL 8
-- PHP 8
+This documentation will guide you through the setup process, explain the core functionalities, and provide detailed information on the API endpoints available in this application. Whether you're a developer looking to extend the functionality or an administrator setting up the system, you'll find all the necessary information to get started and make the most of the Power BI Embed App.
 
 ## Getting Started with Docker Containers
 
@@ -88,72 +94,98 @@ The API routes for this project are defined in the `routes/api.php` file. Here's
 
 These routes are handled by the `App\Http\Controllers\API\Auth\AuthController` controller.
 
-### Resource Routes
+## User Access Policy by Groups
 
-- `GET /expenses`: Retrieves a list of expenses (requires authentication).
-- `POST /expenses`: Creates a new expense (requires authentication).
+This feature allows for fine-grained control over user access to reports based on roles and group memberships.
+
+### Roles
+
+- `GET /roles`: Retrieves a list of roles (requires admin authentication).
+- `POST /roles`: Creates a new role (requires admin authentication).
 
 ```json
 {
-  "title": "Office Supplies",
-  "description": "Purchase of pens, notebooks, and other stationery items",
-  "date": "2023-05-15",
-  "total_amount": 250.75,
+  "name": "Editor",
+  "description": "Can edit and view reports"
+}
+```
+
+- `GET /roles/{role}:` Retrieves a specific role (requires admin authentication).
+- `PUT /roles/{role}:` Updates an existing role (requires admin authentication).
+- `DELETE /roles/{role}:` Deletes a role (requires admin authentication).
+
+### Groups
+
+- `GET /groups`: Retrieves a list of groups (requires admin authentication).
+- `POST /groups`: Creates a new group (requires admin authentication).
+
+```json
+{
+  "name": "Marketing Team",
+  "description": "Group for marketing team members"
+}
+```
+
+- `GET /groups/{group}:` Retrieves a specific group (requires admin authentication).
+- `PUT /groups/{group}:` Updates an existing group (requires admin authentication).
+- `DELETE /groups/{group}:` Deletes a group (requires admin authentication).
+
+### User Group Management
+
+- `GET /users/{user}/groups`: Retrieves a list of groups for a specific user (requires authentication).
+- `POST /users/{user}/groups/{group}`: Adds a user to a group (requires admin authentication).
+
+```json
+{
   "user_id": 1
 }
 ```
 
-- `GET /expenses/{expense}`: Retrieves a specific expense (requires authentication).
-- `PUT /expenses/{expense}`: Updates an existing expense (requires authentication).
+- `DELETE /users/{user}/groups/{group}`: Removes a user from a group (requires admin authentication).
+
+### Role Management
+
+- `GET /users/{user}/roles`: Retrieves a list of roles for a specific user (requires authentication).
+- `POST /users/{user}/roles/{role}`: Assigns a role to a user (requires admin authentication).
 
 ```json
 {
-  "title": "Updated Office Supplies",
-  "description": "Purchase of additional notebooks and highlighters",
-  "date": "2023-05-16",
-  "total_amount": 300.0,
-  "user_id": 1
+  "role_id": 1
 }
 ```
 
-- `DELETE /expenses/{expense}`: Deletes an expense (requires authentication).
+- `DELETE /users/{user}/roles/{role}`: Removes a role from a user (requires admin authentication).
 
-These routes are handled by the `App\Http\Controllers\API\Admin\ExpenseController` controller.
+### Report
 
-#### Partners
-
-- `GET /partners`: Retrieves a list of partners (requires authentication).
-- `POST /partners`: Creates a new partner (requires authentication).
+- `GET /reports`: Retrieves a list of reports (requires authentication).
+- `POST /reports`: Creates a new report (requires authentication).
 
 ```json
 {
-  "name": "Partner Company",
-  "address": "123 Main St, City",
-  "email": "partner@example.com"
+  "title": "Monthly Sales Report",
+  "description": "Sales report for the month of May",
+  "workspace_id": 1,
+  "embed_url": "https://app.powerbi.com/reportEmbed?reportId=f6bfd646-b718-44dc-a378-b73e6b528204&groupId=be8908da-da25-452e-b220-163f52476cdd&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLVVTLU5PUlRILUNFTlRSQUwtcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQifQ%3d%3d"
 }
 ```
 
-- `GET /partners/{partner}`: Retrieves a specific partner (requires authentication).
-- `PUT /partners/{partner}`: Updates an existing partner (requires authentication).
+- `GET /reports/{report}`: Retrieves a specific report (requires authentication).
+- `PUT /reports/{report}`: Updates an existing report (requires authentication).
+- `DELETE /reports/{report}`: Deletes a report (requires authentication).
+
+# Workspace
+
+- `GET /workspaces`: Retrieves a list of workspaces (requires authentication).
+- `POST /workspaces`: Creates a new workspace (requires authentication).
 
 ```json
 {
-  "name": "Updated Partner Company",
-  "address": "456 Oak St, City",
-  "email": "updatedpartner@example.com"
+  "name": "Comercial Department",
+  "description": "Description of the workspace"
 }
 ```
 
-- `DELETE /partners/{partner}`: Deletes a partner (requires authentication).
-
-These routes are handled by the `App\Http\Controllers\API\Admin\PartnerController` controller.
-
-#### Contracts
-
-- `GET /partners/{partner}/contracts`: Retrieves a list of contracts for a specific partner (requires authentication).
-- `POST /partners/{partner}/contracts`: Creates a new contract for a specific partner (requires authentication).
-- `GET /partners/{partner}/contracts/{contract}`: Retrieves a specific contract for a specific partner (requires authentication).
-- `PUT /partners/{partner}/contracts/{contract}`: Updates an existing contract for a specific partner (requires authentication).
-- `DELETE /partners/{partner}/contracts/{contract}`: Deletes a contract for a specific partner (requires authentication).
-
-These routes are handled by the `App\Http\Controllers\API\Admin\ContractController` controller.
+- `GET /workspaces/{workspace}`: Retrieves a specific workspace (requires authentication).
+- `PUT /workspaces/{workspace}`: Updates an existing workspace (requires authentication).
+- `DELETE /workspaces/{workspace}`: Deletes a workspace (requires authentication).

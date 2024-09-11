@@ -1,4 +1,4 @@
-@URL=http://localhost/api
+@URL=http://localhost:80/api
 @token=Bearer 1|Gl4N0OqJ2T9LQvApuUtlb2fFzKTrjmFQjhS2liyH572e8c5b
 
 # ADMIN LOGIN
